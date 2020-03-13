@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <Header />
-    <Main />
+    <div id="content">
+      <Nav>
+        <button @click="componente = 'Main'">Form</button>
+        <button @click="componente = 'List'">Lista</button>
+      </Nav>
+      <component :is="componente" />
+    </div>
     <Footer />
   </div>
 </template>
@@ -10,13 +16,22 @@
 import Main from "@/components/Main.vue";
 import Header from "@/views/Header.vue";
 import Footer from "@/views/Footer.vue";
+import Nav from "./components/Nav";
+import List from "./views/List";
 
 export default {
   name: "App",
   components: {
     Main,
     Header,
-    Footer
+    Footer,
+    Nav,
+    List
+  },
+  data() {
+    return {
+      componente: "Main"
+    };
   }
 };
 </script>
@@ -30,5 +45,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+#content {
+  min-height: 80vh;
 }
 </style>
