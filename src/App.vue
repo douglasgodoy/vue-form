@@ -17,7 +17,7 @@ import Main from "@/components/Main.vue";
 import Header from "@/views/Header.vue";
 import Footer from "@/views/Footer.vue";
 import Nav from "./components/Nav";
-import List from "./views/List";
+import List from "./components/List";
 
 export default {
   name: "App",

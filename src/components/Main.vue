@@ -10,15 +10,15 @@
             placeholder="Nome completo [sem abreviações]"
             autocomplete="off"
           />
-          <span v-show="invalid">Campo não pode ser vazio ou menor que 3 caracteres!</span>
+          <span v-show="!dangerValid">Campo não pode ser vazio ou menor que 3 caracteres!</span>
         </div>
         <div class="form-input">
           <input type="text" id="email" name="email" placeholder="E-mail" autocomplete="off" />
-          <span v-show="invalid">Email inválido!</span>
+          <span v-show="!dangerValid">Email inválido!</span>
         </div>
         <div class="form-input w-5 mr-3">
           <input type="text" id="cpf" name="cpf" placeholder="CPF" autocomplete="off" />
-          <span v-show="invalid">CPF inválido!</span>
+          <span v-show="!dangerValid">CPF inválido!</span>
         </div>
         <div class="form-input w-5 ml-3">
           <input
@@ -28,7 +28,7 @@
             placeholder="Telefone"
             autocomplete="off"
           />
-          <span v-show="invalid">Telefone inválido!</span>
+          <span v-show="!dangerValid">Telefone inválido!</span>
         </div>
         <div class="text-right">
           <button class="btn" @click="save">Salvar</button>
@@ -44,26 +44,48 @@ export default {
   name: "Main",
   data() {
     return {
-      invalid: () => {
-        this.isvalid();
-      }
-    };
+      dangerValid: this.invalid
+    }
   },
+
   methods: {
-    isvalid: (name, cpf, email, phone) => {
-      !name, !cpf, !email, !phone ? console.log("false") : console.log("true");
-      return true;
+    invalid(name,cpf,email,phone) {
+      const inputs = document.querySelectorAll('form input');
+      inputs.forEach(e =>{
+        if(!e.value){
+          console.log('a');
+
+          return false
+        }
+        console.log('b');
+
+        return true
+
+      })
+
+      // inputs.filter(input => console.log(input));
+
+      if(
+        !name ||
+        !cpf ||
+        !email ||
+        !phone
+        ){
+         return false
+      }
+      // return true;
     },
-    save: e => {
+    save(e){
       e.preventDefault();
       const name = document.getElementsByName("name")[0].value;
       const cpf = document.getElementsByName("cpf")[0].value;
       const email = document.getElementsByName("email")[0].value;
       const phone = document.getElementsByName("telefone")[0].value;
-      this.invalid(name, cpf, email, phone);
+      this.invalid(name,cpf,email,phone);
       // console.log(this.invalid());
 
-      const user = { name, cpf, phone, email };
+
+      const user = [...user, { name, cpf, phone, email }];
       localStorage.setItem("users", user);
       alert("Usuário salvo com succeso!");
     }
