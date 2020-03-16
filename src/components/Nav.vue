@@ -14,20 +14,20 @@ export default {
 <style>
 .nav {
   text-align: center;
+  max-width: 40%;
+  margin: 0 auto 1.5rem auto;
 }
-.nav button {
-  background: #fff;
-  /* margin: 0 20px; */
-  border: none;
-  min-width: 25vw;
-  min-height: 40px;
+.nav a {
+  text-decoration: none;
+  color: #2c3e50;
+  padding: 0 20%;
   border-bottom: solid #efeeed 1px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 25px;
 }
 
-.nav button:focus {
-  outline: none;
+.router-link-exact-active {
+  border-bottom: solid #2c3e50 2px !important;
 }
-
 </style>

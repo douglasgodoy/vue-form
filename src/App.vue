@@ -3,35 +3,26 @@
     <Header />
     <div id="content">
       <Nav>
-        <button @click="componente = 'Main'">Form</button>
-        <button @click="componente = 'List'">Lista</button>
+        <router-link :to="{ name: 'Main'}">Form</router-link>
+        <router-link :to="{ name: 'List'}">Lista</router-link>
       </Nav>
-      <component :is="componente" />
+      <router-view />
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
-import Main from "@/components/Main.vue";
-import Header from "@/views/Header.vue";
-import Footer from "@/views/Footer.vue";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 import Nav from "./components/Nav";
-import List from "./components/List";
 
 export default {
   name: "App",
   components: {
-    Main,
     Header,
     Footer,
-    Nav,
-    List
-  },
-  data() {
-    return {
-      componente: "Main"
-    };
+    Nav
   }
 };
 </script>
