@@ -28,9 +28,11 @@ export default {
 </script>
 
 <style>
+
 body {
   margin: 0;
 }
+
 #app {
   min-height: 100vh;
   display: flex;
@@ -40,5 +42,23 @@ body {
 
 #content {
   min-height: 80vh;
+}
+
+.btn {
+  background: #fff;
+  color: #2c3e50;
+  min-width: 100px;
+  min-height: 30px;
+  border: none;
+  border: solid #2c3e50 1px;
+  border-radius: 10px;
+  transition: 0.3s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn:hover {
+  cursor: pointer;
+  color: white;
+  background: #2c3e50;
 }
 </style>

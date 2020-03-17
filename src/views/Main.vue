@@ -10,7 +10,6 @@
             name="name"
             placeholder="Nome completo [sem abreviações]"
             autocomplete="off"
-            v-mask="'A+'"
             v-model="models.name"
           />
           <span v-show="nameValid">Campo não pode ser vazio ou menor que 3 caracteres!</span>
@@ -61,6 +60,8 @@
 </template>
 
 <script>
+import connection from '@/conn';
+
 export default {
   name: "Main",
   data() {
@@ -110,8 +111,8 @@ export default {
       const dinamicUser =
         localStorage.getItem("users") !== null ? user() : firstUser;
 
-      localStorage.setItem("users", JSON.stringify(dinamicUser));
-      console.log(JSON.parse(localStorage.getItem("users")));
+      const list = localStorage.setItem("users", JSON.stringify(dinamicUser));
+      connection.$emit('list', list);
 
       alert("Usuário salvo com succeso!");
     }
@@ -177,23 +178,6 @@ input:focus::-webkit-input-placeholder {
   bottom: 0;
 }
 
-.btn {
-  background: #fff;
-  color: #2c3e50;
-  min-width: 100px;
-  min-height: 30px;
-  border: none;
-  border: solid #2c3e50 1px;
-  border-radius: 10px;
-  transition: 0.3s;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.btn:hover {
-  cursor: pointer;
-  color: white;
-  background: #2c3e50;
-}
 
 /* GENERICAS */
 
