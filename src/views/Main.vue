@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import connection from '@/conn';
-
+import connection from "@/conn";
+import db from "@/db";
 export default {
   name: "Main",
   data() {
@@ -69,7 +69,8 @@ export default {
       models: {
         cpf: "",
         name: "",
-        phone: ""
+        phone: "",
+        email: ""
       },
       nameValid: false,
       emailValid: false,
@@ -112,10 +113,22 @@ export default {
         localStorage.getItem("users") !== null ? user() : firstUser;
 
       const list = localStorage.setItem("users", JSON.stringify(dinamicUser));
-      connection.$emit('list', list);
-
+      connection.$emit("list", list);
+      document.querySelectorAll("form input").forEach(e => (e.value = ""));
       alert("Usuário salvo com succeso!");
     }
+  },
+  created() {
+    localStorage.getItem("users") === null
+      ? localStorage.setItem("users", JSON.stringify(db.users))
+      : "";
+
+    connection.$on("edit", user => {
+      console.log(user.user.name);
+
+      this.models.name = user.user.name;
+      console.log(this.models.name);
+    });
   }
 };
 </script>
@@ -177,7 +190,6 @@ input:focus::-webkit-input-placeholder {
   left: 0;
   bottom: 0;
 }
-
 
 /* GENERICAS */
 
