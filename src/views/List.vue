@@ -32,7 +32,7 @@ export default {
       usersDb: this.users()
     };
   },
-  created() {
+  mounted() {
     connection.$on("list", list => (this.users = list));
   },
   methods: {
@@ -42,15 +42,8 @@ export default {
       localStorage.setItem("users", JSON.stringify(filtro));
       this.usersDb = filtro;
     },
-    edit(i, user) {
-      const userArray = { index: i, user };
-      const btnForm = document.querySelector("a[href='/']");
-      connection.$emit("edit", userArray);
-      const evt = new Event("click", {
-        bubbles: true,
-        cancelable: false
-      });
-      btnForm.dispatchEvent(evt);
+    edit(index) {
+      this.$router.push({name: 'Edit', params: {index} })
     }
   }
 };

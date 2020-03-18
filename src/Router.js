@@ -15,6 +15,11 @@ const routes = [
     path: "/list",
     name: "List",
     component: List
+  },
+  {
+    path: '/edit/:index',
+    name: 'Edit',
+    component: Main
   }
 ];
 

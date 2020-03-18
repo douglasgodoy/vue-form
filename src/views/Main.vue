@@ -22,6 +22,7 @@
             name="email"
             placeholder="E-mail"
             autocomplete="off"
+            v-model="models.email"
           />
           <span v-show="emailValid">Email inválido!</span>
         </div>
@@ -114,21 +115,27 @@ export default {
 
       const list = localStorage.setItem("users", JSON.stringify(dinamicUser));
       connection.$emit("list", list);
-      document.querySelectorAll("form input").forEach(e => (e.value = ""));
+      this.models = {cpf:'', name:'', phone:'', email:''};
       alert("Usuário salvo com succeso!");
     }
   },
-  created() {
+  mounted() {
     localStorage.getItem("users") === null
       ? localStorage.setItem("users", JSON.stringify(db.users))
       : "";
 
-    connection.$on("edit", user => {
-      console.log(user.user.name);
+    if(this.$route.params.index !== undefined) {
+      const users = JSON.parse(localStorage.getItem('users'));
 
-      this.models.name = user.user.name;
-      console.log(this.models.name);
-    });
+      this.models = users.find((element, index) => this.$route.params.index === index);
+    } else {
+      this.models = { cpf:'', name:'', phone:'', email:'' }
+    }
+  },
+  watch: {
+    '$route.params'(params){
+      if(!params.index) this.models = {cpf:'',name:'',phone:'',email:''};
+    }
   }
 };
 </script>
